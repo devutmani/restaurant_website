@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Rosati Bistro"
+description = "A premium responsive restaurant website for Rosati Bistro in Karachi, featuring the menu, dining experience, gallery, reviews, reservation form, and contact details."
+version = "1.0.0"
+id = "artifacts/rosati-bistro"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23580
+
+[services.development]
+run = "pnpm --filter @workspace/rosati-bistro run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/rosati-bistro", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/rosati-bistro/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23580"
+BASE_PATH = "/"
